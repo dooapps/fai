@@ -19,12 +19,19 @@ void main() {
         "x-rapidapi-key": "e0e6d6264dmsh2f3884c1cd7b529p1a29efjsnb7cdc6ac30ce",
       };
 
+      Map<String, String> fieldMappings = {
+            "meta":"meta",
+            "timestamp":"timestamp",
+            "indicators":"indicators"
+          };
+
       try {
         final response = await DataCollector.fetchStockData(
           "public_key",
           urlCollector,
           params,
           headers,
+          fieldMappings,
         );
 
         print("Resposta da API: ${jsonEncode(response)}");
@@ -47,12 +54,22 @@ void main() {
         "x-api-key": "6b77b8ee-9790-427a-a27f-601b0cde0d53",
       };
 
+      Map<String, String> fieldMappings = {
+            "id": "id",
+            "name": "name",
+            "startDate": "startDate",
+            "baseInvestment": "baseInvestment",
+            "balance": "balance",
+            "lastBtcPrice": "lastBtcPrice"
+          };
+
       try {
         final response = await DataCollector.fetchStockData(
           "public_key",
           urlCollector,
           params,
           headers,
+          fieldMappings,
         );
 
         print("Resposta da API: ${jsonEncode(response)}");
