@@ -34,8 +34,6 @@ void main() {
           fieldMappings,
         );
 
-        print("Resposta da API: ${jsonEncode(response)}");
-
         expect(response["statusCode"], equals(200));
       } catch (e) {
         print("Error message: $e");
@@ -72,7 +70,7 @@ void main() {
           fieldMappings,
         );
 
-        print("Resposta da API: ${jsonEncode(response)}");
+        print(jsonEncode(response["body"]["id"]));
 
         expect(response["statusCode"], equals(200));
       } catch (e) {
