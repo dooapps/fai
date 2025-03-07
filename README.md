@@ -1,39 +1,72 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+FinBo_AI Data Collector
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+FinBo_AI Data Collector is a high-performance financial data collection and mapping system designed to integrate and structure information from market APIs like Yahoo Finance and TradingView. It enables capturing, processing, and transforming financial data into actionable insights for investors, traders, and analysts.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
+Features
+	•	📊 Real-time Financial Data Collection from multiple market sources.
+	•	🚀 Automatic Field Mapping to ensure compatibility across different APIs.
+	•	🔄 Data Conversion for standardized formats, including numbers and lists.
+	•	🔍 Detailed Logging for debugging and monitoring API requests.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+ import 'package:finbo_ai_data_collector/data_collector.dart';
 
-## Features
+void main() async {
+  final String url = "https://yahoo-finance-api-data.p.rapidapi.com/chart/simple-chart";
+  final Map<String, dynamic> params = {
+    "symbol": "AAPL",
+    "limit": "10",
+    "range": "1d"
+  };
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+  final Map<String, String> headers = {
+    "x-rapidapi-host": "yahoo-finance-api-data.p.rapidapi.com",
+    "x-rapidapi-key": "YOUR_API_KEY"
+  };
 
-## Getting started
+  final Map<String, String> fieldMappings = {
+    "meta": "meta",
+    "timestamp": "timestamp",
+    "indicators": "indicators"
+  };
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+  final response = await DataCollector.fetchStockData(
+    "public_key",
+    url,
+    params,
+    headers,
+    fieldMappings,
+  );
 
-## Usage
+  print(response);
+}   
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+import 'package:finbo_ai_data_collector/data_mapper.dart';
 
-```dart
-const like = 'sample';
-```
+void main() {
+  final fieldMappings = {
+    "price": "close",
+    "volume": "volume",
+    "date": "timestamp"
+  };
 
-## Additional information
+  final rawData = [
+    {"close": "145.32", "volume": "230000", "timestamp": "1702035200"},
+    {"close": "146.01", "volume": "220000", "timestamp": "1702121600"},
+  ];
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+  final mapper = DataMapper(fieldMappings);
+  final processedData = mapper.processRawData(rawData);
+
+  print(processedData);
+}
+
+dart test
+
+Contributing
+
+Want to contribute? Follow these steps:
+	1.	Fork the repository.
+	2.	Create a branch (git checkout -b my-new-feature).
+	3.	Commit your changes (git commit -m 'Adding new feature').
+	4.	Push the branch (git push origin my-new-feature).
+	5.	Open a Pull Request.
