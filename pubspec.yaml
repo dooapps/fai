@@ -1,17 +1,8 @@
 name: finbo_fai
-description: FinBo_AI Scaling is the core data system of FinBo App, designed to
-  deliver high-performance financial intelligence by integrating machine
-  learning and predictive analytics to optimize decision-making. As the backbone
-  of the platform, FinBo_AI processes vast amounts of real-time financial market
-  data, ensuring strategic insights, trend forecasting, and personalized
-  recommendations for each user.Built with a focus on scalability and security,
-  the system manages everything from raw data acquisition to contextualized
-  analysis, enabling investors, traders, and financial institutions to access
-  precise and actionable information. With native integration into TradingView
-  and other key market APIs, FinBo_AI elevates financial intelligence to the
-  next level, providing a dynamic and tailored experience for its users.
+description: FinBo_AI Scaling is the core of FinBo App, integrating machine learning and predictive analytics to optimize financial decision-making. It processes vast real-time data, delivering strategic insights, trend forecasts, and personalized recommendations. With scalability and security, it manages everything from data acquisition to contextual analysis, seamlessly integrating with TradingView and other key APIs for a dynamic and precise financial experience.
 version: 1.0.0
 repository: https://github.com/finboai/finbo-scaling
+license: GPL-3.0
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
