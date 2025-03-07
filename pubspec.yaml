@@ -5,7 +5,7 @@ repository: https://github.com/finboai/finbo-scaling
 license: GPL-3.0
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.6.1 <4.0.0"
 
 # Add regular dependencies here.
 dependencies:
