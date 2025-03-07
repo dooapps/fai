@@ -1,17 +1,27 @@
 name: finbo_fai
-description: A starting point for Dart libraries or applications.
+description: FinBo_AI Scaling is the core data system of FinBo App, designed to
+  deliver high-performance financial intelligence by integrating machine
+  learning and predictive analytics to optimize decision-making. As the backbone
+  of the platform, FinBo_AI processes vast amounts of real-time financial market
+  data, ensuring strategic insights, trend forecasting, and personalized
+  recommendations for each user.Built with a focus on scalability and security,
+  the system manages everything from raw data acquisition to contextualized
+  analysis, enabling investors, traders, and financial institutions to access
+  precise and actionable information. With native integration into TradingView
+  and other key market APIs, FinBo_AI elevates financial intelligence to the
+  next level, providing a dynamic and tailored experience for its users.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/finboai/finbo-scaling
 
 environment:
-  sdk: ^3.5.4
+  sdk: ">=3.7.0 <4.0.0"
 
 # Add regular dependencies here.
 dependencies:
   # path: ^1.8.0
   dio: ^5.4.0
-  web3dart: ^2.6.1
+  crypto: ^3.0.6
 
 dev_dependencies:
-  lints: ^5.1.1
+  lints: 5.1.1
   test: ^1.24.0

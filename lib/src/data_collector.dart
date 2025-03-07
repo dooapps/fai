@@ -44,14 +44,14 @@ class DataCollector {
       };
 
     } on DioException catch (e) {
-      // Erros HTTP (404, 500, etc.)
+      // Errors HTTP (404, 500, etc.)
       return {
         "statusCode": e.response?.statusCode ?? 500,
         "error": e.message,
         "success": false,
       };
     } catch (e) {
-      // Erros inesperados
+      // Errors unexpected
       return {
         "statusCode": 500,
         "error": e.toString(),

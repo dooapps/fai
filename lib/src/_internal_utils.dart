@@ -22,3 +22,5 @@ String buildQueryParams(Map<String, dynamic> params) {
   bool isNumeric(String str) {
     return double.tryParse(str) != null;
   }
+
+  
