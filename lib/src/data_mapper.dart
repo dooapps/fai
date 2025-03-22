@@ -13,7 +13,7 @@ class DataMapper {
     } else if (rawData is Map<String, dynamic>) {
       return [rawData]; 
     } else {
-      throw Exception("Formato de dados não suportado.");
+      throw Exception("Format not supported");
     }
   }
 

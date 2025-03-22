@@ -16,8 +16,8 @@ void main() {
       };
 
       final Map<String, String> headers = {
-        "x-rapidapi-host": "",
-        "x-rapidapi-key": "e",
+        "x-rapidapi-host": "yahoo-finance-api-data.p.rapidapi.com",
+        "x-rapidapi-key": "e0e6d6264dmsh2f3884c1cd7b529p1a29efjsnb7cdc6ac30ce",
       };
 
       Map<String, String> fieldMappings = {
