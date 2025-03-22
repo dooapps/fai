@@ -7,5 +7,5 @@ class Awesome {
 
 /// Classe pública de exemplo
 class FinboUI {
-  static const String version = "1.0.0";
+  static const String version = "1.0.5";
 }
