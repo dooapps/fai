@@ -80,8 +80,60 @@ void main() {
       }
     });
   }
-  
-  
-
   );
+
+  group('DataCollector.fetchStockData B3 Finbo API - Teste com API real', () {
+  test('Deve retornar dados válidos da API B3', () async {
+    final String urlCollector = "https://itva-crypto-ia-2405334676d1.herokuapp.com/v1/b3/data";
+
+    final Map<String, dynamic> params = {
+       "query": "PETR4"
+    };
+
+    final Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "x-api-key": "6b77b8ee-9790-427a-a27f-601b0cde0d53",
+    };
+
+    Map<String, String> fieldMappings = {
+      "symbol": "symbol",
+      "price": "price",
+      "longName": "longName",
+      "shortName": "shortName",
+      "currency": "currency",
+      "last_updated": "last_updated",
+      "high": "high",
+      "low": "low",
+      "openPrice": "openPrice",
+      "previousClose": "previousClose",
+      "volume": "volume",
+      "marketVariation.absolut": "marketVariation.absolut",
+      "marketVariation.percent": "marketVariation.percent"
+    };
+
+    try {
+      final response = await DataCollector.fetchStockData(
+        "public_key",
+        urlCollector,
+        params,
+        headers,
+        fieldMappings,
+      );
+
+      final body = response["body"];
+      expect(response["statusCode"], equals(200));
+
+      print("Retorno da ação: ${jsonEncode(body)}");
+
+      // Checa se o primeiro item da lista possui os campos esperados
+      expect(body, isA<List>());
+      expect(body.first["symbol"], isNotNull);
+      expect(body.first["price"], isA<num>());
+      expect(body.first["longName"], isA<String>());
+    } catch (e) {
+      print("Erro ao chamar API B3: $e");
+      fail("Erro na chamada da API B3: $e");
+    }
+  });
+});
 }
