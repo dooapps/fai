@@ -7,3 +7,7 @@
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 build/
+windows/
+macos/
+linux/
+ios/
