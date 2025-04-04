@@ -3,11 +3,70 @@
 .dart_tool/
 .env
 
-# Avoid committing pubspec.lock for library packages; see
-# https://dart.dev/guides/libraries/private-files#pubspeclock.
-pubspec.lock
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração de IDEs
+*.iml
+.idea/
+.vscode/
+
+# Dependências e arquivos gerados pelo Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
 build/
-windows/
-macos/
-linux/
-ios/
+*.flutter-plugins
+*.flutter-plugins-dependencies
+*.flutter-versions
+*.flutter/
+
+# Arquivos específicos do Android
+android/.gradle/
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/key.properties
+*.jks
+
+# Arquivos específicos do iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/**/*.mode1v3
+ios/**/*.mode2v3
+ios/**/*.moved-aside
+ios/**/*.pbxuser
+ios/**/*.perspectivev3
+ios/**/*sync/
+ios/**/.sconsign.dblite
+ios/**/.tags*
+ios/**/.vagrant/
+ios/**/DerivedData/
+ios/**/Icon?
+ios/**/profile
+ios/**/xcuserdata
+ios/.generated/
+
+# Arquivos de cobertura de testes
+coverage/
+
+# Outros arquivos gerados
+*.log
+*.lock
+*.pyc
+*.swp
+.atom/
+.buildlog/
+.history
+.svn/
