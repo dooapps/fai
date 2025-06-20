@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:test/test.dart';
-import 'package:finbo_fai/src/data_collector.dart';
+import 'package:fai/src/data_collector.dart';
 
 
 

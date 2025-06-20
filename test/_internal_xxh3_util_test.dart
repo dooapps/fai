@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:finbo_fai/src/_internal_xxh3_util.dart';
+import 'package:fai/src/_internal_xxh3_util.dart';
 
 void main() {
   group('generateXxh3Hash Tests', () {

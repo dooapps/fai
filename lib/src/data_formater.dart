@@ -1,4 +1,4 @@
-import 'package:finbo_fai/src/_internal_xxh3_util.dart';
+import 'package:fai/src/_internal_xxh3_util.dart';
 
 class DataFormater {
   // Formata os dados brutos do Yahoo Finance
