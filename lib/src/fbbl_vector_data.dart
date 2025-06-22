@@ -1,7 +1,7 @@
 import '_internal_blind_scaling.dart';
 import '_internal_crypto_util.dart';
 
-List<num> generateCandleVector({
+Future<List<num>> generateCandleVector({
   required String assetType,
   required String ticker,
   required int timestamp,
@@ -9,23 +9,19 @@ List<num> generateCandleVector({
   required double close,
   required double low,
   required double high,
-}) {
-  // 1. Codifica com escala adaptada
-  final encodedOpen = encodeScale(open, assetType);
-  final encodedClose = encodeScale(close, assetType);
-  final encodedLow = encodeScale(low, assetType);
-  final encodedHigh = encodeScale(high, assetType);
+}) async {
+  final encodedOpen = await encodeScale(open, assetType);
+  final encodedClose = await encodeScale(close, assetType);
+  final encodedLow = await encodeScale(low, assetType);
+  final encodedHigh = await encodeScale(high, assetType);
 
-  // 2. Gera BlindScale e aplica
-  final blindScale = generateBlindScale(assetType);
-  final blindOHLC = applyBlindScale([
+  final blindScale = await generateBlindScale(assetType);
+  final blindOHLC = await applyBlindScale([
     encodedOpen, encodedClose, encodedLow, encodedHigh
   ], blindScale);
 
-  // 3. Gera identificador seguro
-  final fbblNumber = generateSecureNumericHash(ticker);
+  final fbblNumber = await generateSecureNumericHash(ticker);
 
-  // 4. Retorna vetor com timestamp aberto + dados ofuscados + identificador
   return [
     timestamp,
     ...blindOHLC,
@@ -33,7 +29,7 @@ List<num> generateCandleVector({
   ];
 }
 
-List<List<num>> generateCandleVectors({
+Future<List<List<num>>> generateCandleVectors({
   required String assetType,
   required String ticker,
   required List<int> timestamps,
@@ -41,8 +37,7 @@ List<List<num>> generateCandleVectors({
   required List<double> closes,
   required List<double> lows,
   required List<double> highs,
-}) {
-
+}) async {
   final int length = timestamps.length;
   if ([opens, closes, lows, highs].any((list) => list.length != length)) {
     throw ArgumentError('Todas as listas devem ter o mesmo tamanho e não podem estar vazias.');
@@ -51,36 +46,36 @@ List<List<num>> generateCandleVectors({
     throw ArgumentError('As listas não podem estar vazias.');
   }
 
-  final ffblNumber = generateSecureNumericHash(ticker);
-  final blindScale = generateBlindScale(assetType);
+  final fbblNumber = await generateSecureNumericHash(ticker);
+  final blindScale = await generateBlindScale(assetType);
 
   List<List<num>> vectors = [];
 
   for (int i = 0; i < length; i++) {
-    final encodedOpen = encodeScale(opens[i], assetType);
-    final encodedClose = encodeScale(closes[i], assetType);
-    final encodedLow = encodeScale(lows[i], assetType);
-    final encodedHigh = encodeScale(highs[i], assetType);
+    final encodedOpen = await encodeScale(opens[i], assetType);
+    final encodedClose = await encodeScale(closes[i], assetType);
+    final encodedLow = await encodeScale(lows[i], assetType);
+    final encodedHigh = await encodeScale(highs[i], assetType);
 
-    final blindOHLC = applyBlindScale([
+    final blindOHLC = await applyBlindScale([
       encodedOpen, encodedClose, encodedLow, encodedHigh
     ], blindScale);
 
     vectors.add([
       timestamps[i],
       ...blindOHLC,
-      ffblNumber
+      fbblNumber
     ]);
   }
 
   return vectors;
 }
 
-List<Map<String, dynamic>> unpackCandleVectors({
+Future<List<Map<String, dynamic>>> unpackCandleVectors({
   required List<List<num>> vectors,
   required String assetType,
   required double blindScale,
-}) {
+}) async {
   final List<Map<String, dynamic>> unpacked = [];
 
   for (final vector in vectors) {
@@ -88,9 +83,9 @@ List<Map<String, dynamic>> unpackCandleVectors({
 
     final timestamp = vector[0].toInt();
     final blindOHLC = vector.sublist(1, 5).cast<double>();
-    final decodedOHLC = revertBlindScale(blindOHLC, blindScale)
-        .map((v) => v / getBlindScale(assetType))
-        .toList();
+    final decodedOHLCBlind = await revertBlindScale(blindOHLC, blindScale);
+    final scale = await getBlindScale(assetType);
+    final decodedOHLC = decodedOHLCBlind.map((v) => v / scale).toList();
 
     unpacked.add({
       'timestamp': timestamp,
@@ -98,7 +93,7 @@ List<Map<String, dynamic>> unpackCandleVectors({
       'close': decodedOHLC[1],
       'low': decodedOHLC[2],
       'high': decodedOHLC[3],
-      'ffblNumber': vector[5].toInt(),
+      'fbblNumber': vector[5].toInt(),
     });
   }
 

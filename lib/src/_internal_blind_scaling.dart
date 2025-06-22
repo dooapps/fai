@@ -1,41 +1,31 @@
-import 'dart:math';
+import 'package:fai/bridge_generated.dart/api.dart';
 
-
-int getBlindScale(String assetType) {
-  switch (assetType) {
-    case 'crypto':
-      return pow(10, 7).toInt(); // 10^7
-    case 'stocks':
-      return 100; 
-    default:
-      return 1;
-  }
+Future<int> getBlindScale(String assetType) async {
+  final result = await FbblApi.fbblGenerateNumericHash(input: assetType);
+  return result.toInt();
 }
 
-int encodeScale(double value, String assetType) {
-  return (value * getBlindScale(assetType)).round();
+Future<int> encodeScale(double value, String assetType) async {
+  final hash = await getBlindScale(assetType);
+  return (value * hash).round();
 }
 
-double decodeScale(int value, String assetType) {
-  return value / getBlindScale(assetType);
+Future<double> decodeScale(int value, String assetType) async {
+  final hash = await getBlindScale(assetType);
+  return value / hash;
 }
 
-
-double generateBlindScale(String assetType) {
-  final rand = Random();
-  if (assetType == 'crypto') {
-    return pow(10, rand.nextInt(7) + 3).toDouble(); // 10^3 a 10^9
-  } else if (assetType == 'stocks') {
-    return rand.nextDouble() * 4.5 + 0.5; // 0.5 a 5.0
-  } else {
-    return 1.0;
-  }
+Future<double> generateBlindScale(String assetType) async {
+  final hash = await getBlindScale(assetType);
+  return hash.toDouble();
 }
 
-List<double> applyBlindScale(List<int> encodedValues, double blindScale) {
-  return encodedValues.map((v) => v * blindScale).toList();
+Future<List<double>> applyBlindScale(
+    List<int> encodedValues, double blindScale) async {
+  return encodedValues.map((e) => e / blindScale).toList();
 }
 
-List<int> revertBlindScale(List<double> blindValues, double blindScale) {
-  return blindValues.map((v) => (v / blindScale).round()).toList();
+Future<List<int>> revertBlindScale(
+    List<double> blindValues, double blindScale) async {
+  return blindValues.map((e) => (e * blindScale).round()).toList();
 }

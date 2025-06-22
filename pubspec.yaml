@@ -1,8 +1,11 @@
 name: fai
-description: FinBo_AI Scaling is the core of FinBo App, integrating machine learning and predictive analytics to optimize financial decision-making. It processes vast real-time data, delivering strategic insights, trend forecasts, and personalized recommendations. With scalability and security, it manages everything from data acquisition to contextual analysis, seamlessly integrating with TradingView and other key APIs for a dynamic and precise financial experience.
-version: 1.0.8
-repository: https://github.com/finboai/finbo-scaling
-license: GPL-3.0
+description: FAI - Finance Artificial Intelligence SDK. A Flutter plugin that bridges 
+  Flutter apps to the FinBberLink Protocol (FBBL) written in Rust.
+  Provides secure data serialization, cryptography, MAC validation, 
+  and frame handling for financial applications powered by AI.
+version: 1.0.0
+repository: https://github.com/dooapps/fai
+license: MIT
 
 environment:
   sdk: ">=3.6.1 <4.0.0"
@@ -10,20 +13,22 @@ environment:
 # Add regular dependencies here.
 dependencies:
   # path: ^1.8.0
+  uuid: ^4.5.1
+  mutex: ^3.0.0
+  web_socket_channel: ^3.0.3
+  webcrypto: ^0.5.3
+  convert: ^3.1.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: ^9.2.4
   dio: ^5.4.0
   crypto: ^3.0.6
   xxh3: ^1.2.0
-  ffi: ^2.1.0
+  flutter_rust_bridge: 2.10.0
+
 
 dev_dependencies:
   lints: 5.1.1
   test: ^1.24.0
-  ffigen: ^19.0.0
 
-ffigen:
-  output: lib/src/ffi_bindings.dart
-  headers:
-    entry-points:
-      - 'native/include/fbbl.h'
-    include-directives:
-      - 'native/include/*.h'
+
