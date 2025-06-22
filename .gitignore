@@ -70,3 +70,12 @@ coverage/
 .buildlog/
 .history
 .svn/
+
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache
+.idea/
+.macos/
+.DS_Store
